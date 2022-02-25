@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Vue.js | Todo List</title>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+ <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+
+<style>
+*{
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+}
+
+body{
+ min-height: 100vh;
+}
+
+#app{
+ position: absolute;
+ width: 50%;
+ height: 70%;
+ background-color: midnightblue;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%,-50%);
+ border-radius: 5px;
+ overflow: auto;
+}
+
+#app .inputs{
+ width: 100%;
+ height: 20%;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+#app .inputs input{
+ width: 80%;
+ background-color: dodgerblue;
+ padding:5px 10px;
+ border-radius: 5px 0 0 5px;
+ font-size: 1rem;
+}
+
+#app .inputs button{
+ padding:5px 10px;
+ border-radius: 0 5px 5px 0;
+ font-size: 1rem;
+ font-weight: bold;
+ background-color: deepskyblue;
+ cursor: pointer;
+}
+
+input,button{
+ border: none;
+ outline: none;
+ border-bottom: 3px solid blue;
+}
+
+#app .inputs button:focus,#app .inputs button:focus{
+ border-bottom: none;
+}
+
+#app .todo-list{
+ position: relative;
+ width: 80%;
+ height: 300px;
+ margin: auto;
+}
+
+.todo-list ul li{
+ list-style: none;
+ width: 90%;
+ background-color:white;
+ border-radius: 3px;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ overflow: hidden;
+ padding: 5px 10px;
+ margin-bottom: 10px;
+ font-weight: bold;
+}
+
+#app h2{
+ position: relative;
+ font-size: 2rem;
+ left: 50%;
+ transform: translateX(-50%);
+ font-weight: bold;
+ width: 90%;
+ color: white;
+ text-align: center;
+ margin-top: 20px;
+}
+
+.fa-trash{
+ color: darkred;
+ cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+ <div id="app">
+  <h2>Todo List...</h2>
+  <div class="inputs">
+   <input type="text" v-model="inputValue" placeholder="Enter Todo...">
+   <button :disabled="inputValue === ''" @click="addTodo()">Add</button> 
+  </div>
+
+  <div class="todo-list">
+   <ul>
+    <li v-for="list in todoList">{{ list }} <i @click="removeTodo($event)" class="fas fa-trash"></i></li>
+   </ul>
+  </div>
+ </div>
+
+ <script>
+  new Vue({
+   el: "#app",
+   data: {
+    inputValue: "",
+    todoList: []
+   },
+   methods:{
+    addTodo(){
+     if(this.inputValue !== ""){
+      this.todoList.push(this.inputValue);
+      this.inputValue = '';
+     }
+    },
+    removeTodo(e){
+     const item = e.target.parentElement;
+
+     item.remove();
+    }
+   }
+  })
+ </script>
+
+ </div>
+</body>
+</html>
